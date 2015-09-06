@@ -6,6 +6,9 @@
 ImageView::ImageView()
     :QGraphicsView()
 {
+    image = NULL;
+    watcher = NULL;
+    item = NULL;
     createShortcuts();
     fileName = "";
     notifBar = new NotificationBar(this);
@@ -50,11 +53,13 @@ void ImageView::updateTitle(){
 
 void ImageView::load(const QString &path){
     //TODO: pourquoi c'est appellé 2 fois ?
+    delete image;
     image = new QPixmap();
     image->load(path);
     if( ! image->isNull()){
         fileName = QFileInfo(path).fileName();//I know it's overkill but I'm lazy
         notifBar->hide();
+        delete item;
         item = new QGraphicsPixmapItem();
         item->setPixmap(*image);
         item->setFlag(QGraphicsItem::ItemIsMovable);
