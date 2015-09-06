@@ -20,6 +20,7 @@ Q_OBJECT
 
 public slots:
     void load(const QString &path);
+    void fitToImage();
     void open();
 
 
@@ -39,9 +40,10 @@ private:
     QGraphicsPixmapItem* item ;
     QPixmap* image ;
     QFileSystemWatcher* watcher;
-    QShortcut* opShort;
     QString fileName;
 
+    QShortcut* opShort;
+    QShortcut* fitShort;
 
     void listen(const QString &path);
     void notify(const QString &message);

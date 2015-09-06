@@ -14,6 +14,8 @@ ImageView::ImageView()
     notifBar = new NotificationBar(this);
     scene = new QGraphicsScene();
     setScene(scene);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 }
 
 ImageView::~ImageView()
@@ -23,14 +25,24 @@ ImageView::~ImageView()
     delete image;
     delete notifBar;
     delete scene;
+
     delete opShort;
+    delete fitShort;
 }
 
 
 void ImageView::createShortcuts(){
     opShort = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_O), this, SLOT(open()));
+    fitShort = new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_F), this, SLOT(fitToImage()));
 }
 
+
+void ImageView::fitToImage(){
+    if(image != NULL && ! image->isNull()){
+        this->resize(image->width()+2,image->height()+2);
+         scene->setSceneRect(item->mapRectToScene(0,0,image->width(),image->height()));
+    }
+}
 
 
 void ImageView::open(){

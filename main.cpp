@@ -10,6 +10,8 @@ int main(int argc, char *argv[])
     ImageView* w = new ImageView();
     if(argc == 2){
         w->openNewFile(argv[1]);
+
+        w->fitToImage();
     }
     w->show();
 
