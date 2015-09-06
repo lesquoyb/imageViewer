@@ -18,6 +18,10 @@ class ImageView : public QGraphicsView {
 
 Q_OBJECT
 
+protected:
+
+    bool eventFilter(QObject *obj, QEvent *event);
+
 public slots:
     void load(const QString &path);
     void fitToImage();

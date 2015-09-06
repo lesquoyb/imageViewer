@@ -39,6 +39,7 @@ void ImageView::createShortcuts(){
 
 void ImageView::fitToImage(){
     if(image != NULL && ! image->isNull()){
+        //TODO: dézoomer/zoomer :s
         this->resize(image->width()+2,image->height()+2);
          scene->setSceneRect(item->mapRectToScene(0,0,image->width(),image->height()));
     }
@@ -100,6 +101,21 @@ void ImageView::listen(const QString &path){
 
 
 
+bool ImageView::eventFilter(QObject *obj, QEvent *event){
+
+    if( event->type() == QEvent::Wheel ){
+        QWheelEvent *wheel = static_cast<QWheelEvent*>(event);
+        if( wheel->modifiers() == Qt::ControlModifier ){
+            if(wheel->delta() > 0){
+                zoomIn();
+            }
+            else{
+                zoomOut();
+            }
+        }
+    }
+    return QObject::eventFilter(obj, event);
+}
 
 
 void ImageView::keyPressEvent(QKeyEvent* k){
