@@ -3,9 +3,50 @@
 #include <QGraphicsView>
 #include <QKeyEvent>
 
+#include <QMainWindow>
+#include <QGraphicsScene>
+#include <QFileSystemWatcher>
+#include "notificationbar.h"
+#include <string>
+#include <QShortcut>
+
+
+
+
 
 class ImageView : public QGraphicsView {
 
+Q_OBJECT
+
+public slots:
+    void load(const QString &path);
+    void open();
+
+
+public:
+
+    void openNewFile(const QString &path);
+    ImageView();
+    ~ImageView();
+    void keyPressEvent(QKeyEvent* k);
+
+
+
+private:
+
+    QGraphicsScene* scene;
+    NotificationBar* notifBar;
+    QGraphicsPixmapItem* item ;
+    QPixmap* image ;
+    QFileSystemWatcher* watcher;
+    QShortcut* opShort;
+    QString fileName;
+
+
+    void listen(const QString &path);
+    void notify(const QString &message);
+    void updateTitle();
+    void createShortcuts();
     void zoomIn();
     void zoomOut();
     void left();
@@ -14,11 +55,6 @@ class ImageView : public QGraphicsView {
     void down();
 
 
-public:
-    ImageView();
-    ImageView(QWidget*&w):QGraphicsView(w){}
-    ~ImageView();
-    void keyPressEvent(QKeyEvent* k);
 
 };
 
