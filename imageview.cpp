@@ -16,6 +16,9 @@ ImageView::ImageView()
     setScene(scene);
     setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+    setRenderHint(QPainter::Antialiasing, true);
+    setRenderHint( QPainter::HighQualityAntialiasing, true);
 }
 
 ImageView::~ImageView()
@@ -75,6 +78,8 @@ void ImageView::load(const QString &path){
         delete item;
         item = new QGraphicsPixmapItem();
         item->setPixmap(*image);
+        item->setTransformationMode(Qt::SmoothTransformation);
+
         item->setFlag(QGraphicsItem::ItemIsMovable);
         scene->clear();
         scene->addItem(item);
